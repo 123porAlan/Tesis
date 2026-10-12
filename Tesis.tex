@@ -1,0 +1,278 @@
+\documentclass[letterpaper,12pt,oneside]{book}
+\usepackage{lipsum}
+\usepackage[Sonny]{fncychap}
+\usepackage[top=1in, left=1.25in, right=1.25in, bottom=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+\usepackage{tabularx}
+\usepackage{microtype}
+\usepackage{licenciatura}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\graphicspath{{./figs/}}
+\usepackage{setspace}
+\usepackage[numbers]{natbib}
+\usepackage{amsthm}
+
+\theoremstyle{definition}
+\newtheorem{definicion}{Definición}[chapter]
+\newtheorem{ejemplo}{Ejemplo}[chapter]
+
+\theoremstyle{plain}
+\newtheorem{teorema}{Teorema}[chapter]
+\newtheorem{proposicion}{Proposición}[chapter]
+\newtheorem{corolario}{Corolario}[chapter]
+
+\theoremstyle{remark}
+\newtheorem{observacion}{Observación}[chapter]
+\bibliographystyle{apalike}
+
+\author{ALAN BELLON GARCÍA}
+\title{Modelado y prototipado de un sistema de Inteligencia Artificial Anticipatoria para la
+estimación de estados de congestión en el STC Metro de la Ciudad de México.
+}
+\faculty{Facultad de Ciencias}
+\degree{LICENCIADO EN CIENCIAS DE LA COMPUTACIÓN}
+\supervisor{M. EN FIL. C. ENRIQUE FRANCISCO SOTO ASTORGA}
+\cityandyear{Ciudad Universitaria, CDMX, 2026}
+\logouni{Escudo-UNAM}
+\logofac{Escudo-FC}
+
+\begin{document}
+\frontmatter
+\maketitle
+\clearpage
+\thispagestyle{empty}
+\vspace*{3cm}
+\begin{flushright}
+  \emph{A mis padres, por ser el pilar fundamental en todo este camino.}\\[0.2em]
+  \emph{Hubo días de enfermedad y momentos en los que me sentí perdido;}\\[0.2em]
+  \emph{sin embargo, al final del día siempre estuvieron ahí para apoyarme}\\[0.2em]
+  \emph{en todo lo posible, algo que para mí es profundamente trascendental.}
+\end{flushright}
+
+\chapter{Agradecimientos}
+\spacing{1.5}
+Deseo expresar mi más sincero agradecimiento a mi asesor, el M. en Fil. C. Enrique
+Francisco Soto Astorga, por la valiosa guía que brindó a lo largo de todo el desarrollo
+de esta investigación. Su rigor académico, su paciencia ante las dificultades y su
+disposición constante para la discusión crítica de las ideas fueron determinantes tanto
+en la delimitación del problema como en la construcción del marco teórico y del
+prototipo aquí presentados. Su acompañamiento académico contribuyó no sólo a la
+culminación de este trabajo, sino también a mi formación como cientifico de la computación.
+
+Agradezco asimismo a la Universidad Nacional Autónoma de México por la formación
+recibida y por el espacio académico que me otorgó durante mis estudios de licenciatura.
+De manera particular, extiendo este reconocimiento a la Facultad de Ciencias, cuyo
+cuerpo docente y comunidad académica proporcionaron los fundamentos científicos y el
+ambiente de exigencia intelectual sin los cuales esta tesis no habría sido posible.
+
+\tableofcontents
+\listoffigures
+    
+\mainmatter
+
+\chapter{Introducción}
+La introducción debe hacer legible la tesis tanto para un lógico como para un filósofo de las matemáticas. El tema es técnicamente denso; la introducción es la única oportunidad de ganar al lector antes de entrar al formalismo.
+
+\section{Contexto histórico y científico}
+Recuperar la justificación del anexo.
+
+Abre planteando la congestión del STC Metro como un problema de decisión bajo incertidumbre, no como un problema de infraestructura. El lector debe entender desde el primer párrafo que lo que está en juego es qué información tiene un usuario al momento de elegir una ruta, no cuántos trenes hay.
+En dos o tres páginas traza el linaje teórico: Rosen (2012/1985) establece la noción de sistema anticipatorio, Poli (2017) la sistematiza como campo, y Rovatsos (2017) la traslada a arquitecturas de agentes. No desarrolles la teoría aquí, sólo anúnciala. El desarrollo completo va en el capítulo 3.
+Cierra nombrando el hueco de forma explícita, no insinuada: los sistemas de navegación desplegados sobre la red del Metro operan de forma reactiva sobre el estado presente o sobre promedios históricos, y ninguno incorpora un modelo interno del comportamiento futuro de la red que modifique la recomendación actual. Esa oración es el argumento de originalidad de toda la tesis y debe aparecer redactada en el anexo, en la introducción y en las conclusiones con la misma precisión.
+
+Tus fuentes:
+
+\begin{itemize}
+    \item Central: Rosen, R. (2012/1985). Anticipatory systems: Philosophical, mathematical, and methodological foundations (2a ed.). Springer.
+\item Central: Rovatsos, M. (2017). Anticipatory artificial intelligence. En R. Poli (Ed.), Handbook of anticipation. Springer. 
+\item De apoyo: Poli, R. (2017). Handbook of anticipation. Springer. 
+\end{itemize}
+
+\section{Objetivos}
+Transcribe el objetivo principal y los objetivos secundarios del anexo firmado, sin reformularlos. Después agrega una tabla de dos columnas que mapee cada objetivo secundario al capítulo o sección que lo cumple. Esa tabla es la prueba de coherencia interna más rápida que tú y tu asesor pueden hacer sobre el avance.
+Al construir la tabla vas a encontrar que el capítulo 5.5 y el 6.4, que sostienen la comparación central de la hipótesis, no responden a ningún objetivo secundario del anexo. Habla con tu asesor sobre incorporar un sexto objetivo secundario redactado en estos términos: construir un sistema de referencia reactivo que sirva de base de comparación controlada para el prototipo anticipatorio.
+
+
+\section{Hipótesis}
+La hipótesis del anexo mezcla dos cosas distintas: una afirmación contrastable (el prototipo anticipatorio produce recomendaciones con menor tiempo de traslado que la búsqueda de rutas estática) y un entregable (el blueprint de un MVP). Sepáralas. La hipótesis es sólo la primera; el blueprint es un producto del trabajo y va en el objetivo, no en la hipótesis.
+Enuncia enseguida las condiciones de falsación en no más de un párrafo: qué resultado experimental concreto contaría como refutación. Sin eso, la comparativa del capítulo 6 no puede fallar, y una hipótesis que no puede fallar no es una hipótesis.
+
+\section{Visión general del trabajo}
+
+Un párrafo por capítulo, entre cinco y ocho líneas cada uno, explicando qué hace ese capítulo y de qué capítulo previo depende. Escribe esta sección al final, cuando el resto esté redactado: es la única forma de que refleje la tesis que efectivamente escribiste y no la que planeaste.
+
+\chapter{Antecedentes}
+
+\section{Breve historia del STC-Metro}
+Máximo cuatro páginas y con función argumentativa. Selecciona los hitos que explican la topología actual de la red y sus cuellos de botella estructurales: el orden de construcción de las líneas, la concentración de transbordos en el centro, el crecimiento de la demanda frente a la capacidad instalada.
+
+Cierra con cifras de afluencia por línea y por estación del periodo más reciente disponible. Esas cifras son insumo directo del capítulo 4: son lo que va a calibrar tu generador de datos sintéticos.
+
+\section{Problemas de congestión}
+
+Aquí tienes que producir una definición operativa de saturación, no una descripción del fenómeno. Necesitas una variable con unidades y umbrales: pasajeros por metro cuadrado de andén, tiempo de espera hasta poder abordar, número de trenes que un usuario deja pasar, o la que decidas con tu asesor.
+
+Justifica la elección en función de dos criterios: que sea predecible a partir de series temporales y que sea simulable en el entorno del capítulo 4. Una variable que no cumpla ambos criterios no te sirve por más fiel que sea al fenómeno real.
+
+Fuente de apoyo: Ortúzar, J. de D., \& Willumsen, L. G. (2011). Modelling transport (4a ed.). Wiley. 
+
+\section{Soluciones exploradas}
+Revisa qué soliciones existe hoy: los avisos de servicio del STC, las aplicaciones de navegación de terceros que integran la red, los tableros de afluencia. De cada una establece un punto concreto: sobre qué estado de la red opera, el presente observado o un promedio histórico.
+
+Esta sección es la que justifica que el sistema de referencia que usaremos más adelante sea reactivo. Termina explicitando esa conexión.
+
+\chapter{Aparato teórico}
+\section{Teoría de los sistemas anticipatorios}
+
+Define sistema anticipatorio en los términos de Rosen: un sistema que contiene un modelo predictivo de sí mismo y de su ambiente, y que usa las predicciones de ese modelo para modificar su estado presente. Desarrolla la distinción frente a los sistemas reactivos gobernados por retroalimentación, que es donde Rosen pone el peso del argumento.
+
+Lo más importante de la sección: enuncia un criterio explícito de demarcación entre anticipación y predicción. Debe ser un criterio que puedas aplicar después a tu propio prototipo para decidir si califica. Redáctalo como una condición verificable, del tipo: un sistema es anticipatorio si y sólo si su modelo interno cumple tales propiedades.
+
+Incorpora la distinción entre anticipación débil, basada en un modelo del ambiente, y anticipación fuerte, en la que el sistema anticipa por su propia constitución. Ubica tu prototipo en una de las dos y sostén la ubicación.
+
+En Rosen el modelo interno es un modelo del sistema mismo. En tu prototipo el modelo predice el estado de la red, que es el ambiente, y quien decide es el usuario. Tienes que declarar de forma explícita quién es el sistema anticipatorio: el recomendador, el viajero, o el par acoplado recomendador-viajero. Si no lo resuelves aquí, el prototipo será un pipeline clásico con términos rosenneanos sin aplicación real.
+
+
+fuentes
+
+\begin{itemize}
+    \item Central: Rosen, R. (2012/1985). Anticipatory systems: Philosophical, mathematical, and methodological foundations (2a ed.). Springer.
+    \item Central: Dubois, D. M. (2003). Mathematical foundations of discrete and functional systems with strong and weak anticipations. En M. V. Butz, O. Sigaud, \& P. Gérard (Eds.), Anticipatory behavior in adaptive learning systems (pp. 110-132). Springer. 
+    \item Apoyo: Poli, R. (2017). Handbook of anticipation. Springer.
+\end{itemize}
+\section{Aprendizaje automático reactivo}
+Presenta el pronóstico de series temporales como el paradigma que vas a usar: descomposición, estacionalidad, modelos de referencia como persistencia y ARIMA, y modelos de aprendizaje automático supervisado. Delimita el horizonte de 10 a 60 minutos y explica por qué ese rango y no otro.
+
+Cierra explicando en qué sentido preciso este paradigma es reactivo. Ese sentido es el que hace no trivial la comparación del capítulo 6.
+Fuentes:
+
+\begin{itemize}
+    \item Hyndman, R. J., \& Athanasopoulos, G. (2021). Forecasting: Principles and practice (3a ed.). OTexts.
+    \item Mitchell, T. M. (1997). Machine learning. McGraw-Hill.
+    \item Vlahogianni, E. I., Karlaftis, M. G., \& Golias, J. C. (2014). Short-term traffic forecasting: Where we are and where we're going. Transportation Research Part C, 43, 3-19.
+\end{itemize}
+
+\section{IA Anticipatoria}
+Expón la arquitectura de agente anticipatorio de Rovatsos y contrástala punto por punto con el criterio de demarcación que fijaste en 3.1. Rovatsos opera en un registro de ingeniería y Rosen en uno ontológico: si las dos nociones no coinciden, dilo, no las fusiones.
+
+Ubica la propuesta de Hernández-Porrello, Astorga y Sa (2026; cuando llegues acá me la pides) en ese mapa y explica qué aporta su modelo al planteamiento de tu prototipo.
+
+Además de lso textos ya mencionados, usa: Butz, M. V., Sigaud, O., \& Gérard, P. (Eds.). (2003). Anticipatory behavior in adaptive learning systems. Springer.
+
+\section{Explicabilidad algorítmica}
+El quinto objetivo secundario del anexo compromete explicabilidad y el apartado correspondiente (más adelante) la evalúa, pero el aparato teórico del anexo no la contempla y la bibliografía no incluye una sola fuente sobre el tema. Esta sección cierra ese hueco.
+
+Distingue entre modelos interpretables por diseño y explicaciones post hoc sobre modelos opacos, y toma partido: para un sistema que da recomendaciones de ruta a usuarios finales, esa elección tiene consecuencias sobre la arquitectura del capítulo 5. Define qué vas a considerar una explicación adecuada de una recomendación de ruta. Extensión de cuatro a seis páginas.
+
+Fuentes:
+
+\begin{itemize}
+    \item Rudin, C. (2019). Stop explaining black box machine learning models for high stakes decisions and use interpretable models instead. Nature Machine Intelligence, 1(5), 206-215. 
+    \item Ribeiro, M. T., Singh, S., \& Guestrin, C. (2016). Why should I trust you? Explaining the predictions of any classifier. En Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining (pp. 1135-1144). ACM. 
+    \item Lundberg, S. M., \& Lee, S. I. (2017). A unified approach to interpreting model predictions. Advances in Neural Information Processing Systems, 30, 4765-4774.
+\end{itemize}
+
+\chapter{Modelo y generación de datos para la simulación de carga}
+
+\section{Representación de la red del metro como grafo dirigido}
+Especifica la construcción con precisión suficiente para que un tercero la reproduzca: qué es un nodo (estación, andén por sentido, o par estación-línea), qué es una arista, cómo modelas los transbordos y qué unidades tiene el peso. La decisión sobre los transbordos es la que más afecta los resultados, porque el tiempo de transbordo en hora pico es donde se acumula la congestión.
+
+Da las cifras de la instancia concreta: número de nodos, número de aristas, líneas modeladas, y si trabajas con la red completa o con un subconjunto. Si es un subconjunto, justifica el recorte.
+
+Verifica y reporta si tu grafo cumple la propiedad FIFO.
+
+Fuentes: Bondy, A., \& Murty, U. (2010). Graph theory. Springer y Newman, M. E. J. (2018). Networks (2a ed.). Oxford University Press.
+
+\section{Metodología para generar el dataset sintético}
+
+Documenta el generador como un objeto de investigación por derecho propio, no como un detalle de implementación: qué procesos estocásticos usas, con qué parámetros, calibrados contra qué datos reales y con qué semillas.
+
+Incluye una subsección de validación del generador: qué estadísticos de las series sintéticas comparas contra los agregados públicos reales y qué tolerancia consideras aceptable. Un generador no validado invalida todo lo que venga después.
+
+Deja constancia explícita de que los parámetros del generador se fijaron antes de entrenar el modelo y no se ajustaron después. Si los ajustaste, repórtalo.
+
+Si el generador produce congestión con una estructura que el modelo del capítulo 5 está diseñado para capturar, la comparativa del capítulo 6 mide la consistencia entre dos artefactos que tú escribiste, no la ventaja del enfoque anticipatorio. Tres condiciones mínimas para neutralizarlo: primero, generador y modelo predictivo deben tener especificaciones distintas, no la misma familia paramétrica; segundo, los parámetros del generador se fijan y se congelan antes de tocar el modelo; tercero, el conjunto de escenarios debe incluir casos construidos para ser impredecibles, según se detalla en la sig. sección.
+
+Fuentes: Banks, J. (2005). Discrete-event system simulation (4a ed.). Pearson; Law, A. M. (2015). Simulation modeling and analysis (5a ed.). McGraw-Hill; Hyndman, R. J., \& Athanasopoulos, G. (2021). Forecasting: Principles and practice (3a ed.). OTexts.
+.
+\section{Caracterización de escenarios de simulación}
+
+Construye una taxonomía de escenarios con al menos tres clases: congestión recurrente y regular (hora pico entre semana), congestión con estructura pero irregular (eventos masivos, lluvia, días festivos) y disrupciones sin estructura predecible (falla de tren, cierre imprevisto de estación).
+
+La tercera clase es la más importante para la honestidad del experimento: son los casos donde el sistema anticipatorio no debería tener ventaja alguna. Repórtalos por separado en el capítulo 6. Un resultado que muestre ventaja en las dos primeras clases y ninguna en la tercera es un buen resultado y es defendible; un resultado que muestre ventaja uniforme en las tres es sospechoso y así se lo va a leer el jurado.
+
+\chapter{Prototipo}
+\section{Arquitectura}
+Un diagrama de componentes con sus interfaces, acompañado de prosa que explique el flujo de datos completo, desde el simulador hasta la recomendación entregada al usuario. Nombra los módulos y respeta esos nombres en todo el resto de la tesis.
+
+Marca en el diagrama, de forma visible, cuál es el modelo interno en el sentido del apartado 3.1 y sobre qué actúa su salida. Ese señalamiento es lo que conecta la arquitectura con el marco teórico, y sin él el capítulo 3 queda como ornamento.
+
+\section{Modelo predictivo}
+Declara la variable objetivo, que es la definición operativa de saturación del apartado 2.2, con sus unidades. Declara la granularidad temporal y espacial, los horizontes de predicción concretos que vas a evaluar dentro del rango de 10 a 60 minutos, las variables de entrada y la partición entre entrenamiento, validación y prueba.
+
+Incluye por lo menos dos modelos de referencia: persistencia, es decir predecir que el estado futuro es igual al actual, y promedio histórico por franja horaria. Si tu modelo no supera de forma clara al promedio histórico, no tienes modelo predictivo y hay que replantear antes de seguir.
+
+Reporta las métricas de error que vas a usar y por qué esas.
+
+\section{Algoritmo de recomendación}
+Presenta el algoritmo en pseudocódigo, con su complejidad y con la especificación de cómo la predicción del apartado 5.2 se convierte en peso de arista. El punto delicado es el desfase temporal: el peso de una arista que el viajero va a recorrer dentro de 25 minutos debe usar la predicción para el minuto 25, no la del minuto 0.
+
+Explica cómo manejas la incertidumbre de la predicción. Un peso puntual descarta información; una alternativa es propagar un intervalo y optimizar el peor caso. Decide y sostén la decisión.
+
+\section{KPIs}
+Separa con claridad dos familias de métricas que suelen confundirse: las de calidad predictiva, que miden qué tan bien estima el modelo, y las de beneficio para el usuario, que miden si la ruta recomendada fue efectivamente mejor. Un modelo puede mejorar la primera sin mover la segunda, y eso en sí mismo es un hallazgo que vale la pena reportar.
+
+Define para cada KPI su fórmula, sus unidades y cómo se agrega entre corridas de simulación.
+
+\section{Sistema reactivo para comparación}
+Especifica el sistema de referencia con el mismo nivel de detalle que el prototipo anticipatorio. Debe compartir grafo, entorno de simulación y métricas, y diferir sólo en la fuente de los pesos.
+
+Implementa dos sistemas de referencia, no uno: uno estático, con pesos fijos por tiempo nominal de recorrido, que es el que menciona la hipótesis del anexo, y uno reactivo con pesos tomados del estado presente observado de la red. El segundo es el competidor difícil y es el que existe realmente en las aplicaciones del apartado 2.3.
+
+\chapter{Implementación y experimentación}
+\section{Entorno de desarrollo y herramientas}
+Lista y justifica las herramientas con sus versiones exactas. Incluye el archivo de dependencias y el enlace al repositorio. Breve, dos o tres páginas: nadie defiende una tesis por su elección de librerías, pero sin versiones nada de esto es reproducible.
+
+
+\section{Interfaz de usuario}
+Describe la interfaz en función de lo que el sistema tiene que comunicar: la ruta recomendada, el estado futuro estimado que la sustenta y el nivel de confianza de esa estimación. Ese tercer elemento es el que conecta con el apartado 6.5.
+
+Incluye capturas. No hace falta prueba de usabilidad con usuarios; si no la hiciste, dilo en las limitaciones del capítulo 7 en lugar de sugerir que sí.
+
+\section{Diseño experimental y pruebas}
+Antes de reportar resultados, especifica el diseño: número de corridas por escenario, semillas, duración simulada de cada corrida, número de viajes origen-destino evaluados y cómo se eligieron los pares. Reporta intervalos de confianza, no promedios sueltos.
+
+El título de esta sección amplía el del anexo, que decía sólo pruebas de entorno de simulación. La ampliación es deliberada y está justificada en las observaciones al asesor.
+
+\section{Resultados}
+Reporta los resultados desagregados por clase de escenario según la taxonomía del apartado 4.3, no agregados en un solo número. La pregunta interesante no es si el sistema anticipatorio gana, sino en qué condiciones gana y en cuáles no.
+
+Discute los casos donde pierde con el mismo cuidado que aquellos donde gana. Es el apartado donde se mide la honestidad del trabajo y donde el jurado va a concentrar sus preguntas.
+
+\section{Análisis de explicabilidad}
+Aplica el criterio de explicación adecuada que fijaste en el apartado 3.5 a las recomendaciones que tu prototipo produjo. Toma casos concretos, incluyendo al menos uno donde la recomendación anticipatoria haya sido peor que la de referencia, y muestra qué explicación entrega el sistema.
+
+El quinto objetivo secundario dice proponer la explicabilidad, no evaluarla. Aclara con tu asesor el alcance comprometido: proponer un mecanismo, implementarlo, o evaluar su efecto sobre usuarios son tres cosas de costo muy distinto.
+
+\chapter{Conclusiones y trabajo futuro}
+Responde de forma directa a la hipótesis reformulada en 1.3, con el resultado y sus condiciones. Recupera el hueco enunciado en 1.1 y di con precisión qué parte de ese hueco quedó cubierta y cuál no.
+
+Vuelve sobre el criterio de demarcación del apartado 3.1 y pronúnciate: ¿el prototipo que construiste es un sistema anticipatorio en el sentido de Rosen, o es un sistema predictivo con planeación? Una respuesta negativa argumentada vale más que una afirmativa forzada, y es una contribución filosófica en sí misma.
+
+Explica las limitaciones: la primera limitación, y la que el jurado va a plantear si tú no la planteas, es que toda la validación ocurrió sobre datos sintéticos generados por el propio autor. Enúnciala tú primero y explica qué mitigaciones aplicaste según el apartado 4.2.
+
+Agrega las limitaciones de cobertura de la red, de horizonte temporal y de ausencia de prueba con usuarios reales.
+
+Habla de posible trabajo futuro, concreto y ordenado por costo: qué haría falta para alimentar el prototipo con datos reales, qué convenio o acceso institucional supondría, y qué componentes de la arquitectura habría que rehacer. Evita la lista genérica de mejoras posibles.
+
+\backmatter
+
+\bibliography{bibliografia}
+
+\end{document}
